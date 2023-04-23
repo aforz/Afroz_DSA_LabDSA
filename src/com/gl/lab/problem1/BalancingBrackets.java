@@ -21,27 +21,29 @@ public class BalancingBrackets {
                 stack.push(ch);
                 continue;
             }
-            if (stack.isEmpty())
+            if (!stack.isEmpty()) {
+                char bracket;
+                switch (ch) {
+                    case ')':
+                        bracket = stack.pop();
+                        if (bracket == '{' || bracket == '[')
+                            return false;
+                        break;
+                    case '}':
+                        bracket = stack.pop();
+                        if (bracket == '(' || bracket == '[')
+                            return false;
+                        break;
+                    case ']':
+                        bracket = stack.pop();
+                        if (bracket == '(' || bracket == '{')
+                            return false;
+                        break;
+                }
+            } else
                 return false;
-            char bracket;
-            switch (ch) {
-                case ')':
-                    bracket = stack.pop();
-                    if (bracket == '{' || bracket == '[')
-                        return false;
-                    break;
-                case '}':
-                    bracket = stack.pop();
-                    if (bracket == '(' || bracket == '[')
-                        return false;
-                    break;
-                case ']':
-                    bracket = stack.pop();
-                    if (bracket == '(' || bracket == '{')
-                        return false;
-                    break;
-            }
         }
         return stack.isEmpty();
     }
 }
+

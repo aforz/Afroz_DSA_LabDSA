@@ -69,23 +69,17 @@ public class FindPairInBST {
              / \      /  \
             1   3    5    7
         */
-//        findPairInBST.insert(4);
-//        findPairInBST.insert(2);
-//        findPairInBST.insert(6);
-//        findPairInBST.insert(1);
-//        findPairInBST.insert(3);
-//        findPairInBST.insert(5);
-//        findPairInBST.insert(7);
-        findPairInBST.insert(15);
-        findPairInBST.insert(10);
-        findPairInBST.insert(20);
-        findPairInBST.insert(8);
-        findPairInBST.insert(12);
-        findPairInBST.insert(16);
-        findPairInBST.insert(25);
+        findPairInBST.insert(4);
+        findPairInBST.insert(2);
+        findPairInBST.insert(6);
+        findPairInBST.insert(1);
+        findPairInBST.insert(3);
+        findPairInBST.insert(5);
+        findPairInBST.insert(7);
 
-        System.out.println("Sum = " + 35);
-        if (findPairInBST.isPairAvailable(findPairInBST.root, findPairInBST.root, 35)) {
+        int sum = 6;
+        System.out.println("Sum = " + sum);
+        if (findPairInBST.isPairAvailable(findPairInBST.root, findPairInBST.root, sum)) {
 
         } else
             System.out.println("nodes are not found.");
