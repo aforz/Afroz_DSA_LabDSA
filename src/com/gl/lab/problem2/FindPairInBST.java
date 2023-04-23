@@ -1,87 +1,63 @@
 package com.gl.lab.problem2;
 
-class Node {
-    int key;
-    Node left, right;
-
-    Node(int data) {
-        key = data;
-        left = null;
-        right = null;
-    }
-}
+import java.util.HashSet;
 
 public class FindPairInBST {
-    Node root;
 
-    FindPairInBST() {
-        root = null;
+    static class Node {
+        int key;
+        Node left, right;
     }
 
-    void insert(int key) {
-        root = insertRecursively(root, key);
+    static Node NewNode(int data) {
+        Node temp = new Node();
+        temp.key = data;
+        temp.left = null;
+        temp.right = null;
+        return temp;
     }
 
-    Node insertRecursively(Node root, int data) {
-        if (root == null) {
-            root = new Node(data);
-            return root;
-        }
-        if (data < root.key) {
-            root.left = insertRecursively(root.left, data);
-        } else if (data > root.key) {
-            root.right = insertRecursively(root.right, data);
-        }
+    static Node insert(Node root, int data) {
+        if (root == null)
+            return NewNode(data);
+        if (data < root.key)
+            root.left = insert(root.left, data);
+        else
+            root.right = insert(root.right, data);
         return root;
     }
 
-    boolean isPairAvailable(Node root, Node temp, int sum) {
-        if (temp == null)
-            return false;
-        else
-            return search(root, temp, sum - temp.key) || isPairAvailable(root, temp.left, sum) || isPairAvailable(root, temp.right, sum);
-    }
-
-    boolean search(Node root, Node temp, int key) {
+    static boolean checkPairRecursively(Node root, int sum, HashSet<Integer> set) {
         if (root == null)
             return false;
-        Node current = root;
-        boolean flag = false;
-        while (current != null && flag != true) {
-            if (current.key == key && temp != current) {
-                flag = true;
-                System.out.println("Pair is (" + current.key + "," + temp.key + ")");
-                return true;
-            } else if (key < current.key)
-                current = current.left;
-            else
-                current = current.right;
-        }
-        return flag;
+        if (checkPairRecursively(root.left, sum, set))
+            return true;
+        if (set.contains(sum - root.key)) {
+            System.out.println("Pair is (" + (sum - root.key) + "," + root.key + ")");
+            return true;
+        } else
+            set.add(root.key);
+        return checkPairRecursively(root.right, sum, set);
+    }
+
+    static void checkPairInBST(Node root, int sum) {
+        HashSet<Integer> set = new HashSet<Integer>();
+        if (!checkPairRecursively(root, sum, set))
+            System.out.println("nodes are not found");
     }
 
     public static void main(String[] args) {
-        FindPairInBST findPairInBST = new FindPairInBST();
-        /*
-                   4
-                /     \
-              2        6
-             / \      /  \
-            1   3    5    7
-        */
-        findPairInBST.insert(4);
-        findPairInBST.insert(2);
-        findPairInBST.insert(6);
-        findPairInBST.insert(1);
-        findPairInBST.insert(3);
-        findPairInBST.insert(5);
-        findPairInBST.insert(7);
+        Node root = null;
+        root = insert(root, 40);
+        root = insert(root, 20);
+        root = insert(root, 60);
+        root = insert(root, 10);
+        root = insert(root, 30);
+        root = insert(root, 50);
+        root = insert(root, 70);
 
-        int sum = 6;
+        int sum = 130;
         System.out.println("Sum = " + sum);
-        if (findPairInBST.isPairAvailable(findPairInBST.root, findPairInBST.root, sum)) {
-
-        } else
-            System.out.println("nodes are not found.");
+        checkPairInBST(root, sum);
     }
 }
