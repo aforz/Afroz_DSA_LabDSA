@@ -7,6 +7,7 @@ public class BalancingBrackets {
     public static void main(String[] args) {
 //        String input = "([[{}]])";
         String input = "([[{}]]))";
+//        String input = "([[{}]])()";
         if (isInputBracketsBalanced(input))
             System.out.println("The entered String has Balanced Brackets");
         else
